@@ -1,0 +1,118 @@
+
+/* ==========================
+   NAVBAR & SIDE MENU
+========================== */
+
+.hamburger{
+    position:fixed;
+    top:24px;
+    right:24px;
+    width:56px;
+    height:56px;
+    border:none;
+    border-radius:8px;
+    background:#252734;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    z-index:1001;
+    transition:.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+.hamburger:hover{
+    background:#FFC107;
+    color:#111;
+    transform:translateY(-2px);
+}
+
+.side-menu{
+    position:fixed;
+    top:0;
+    right:-340px;
+    width:320px;
+    height:100vh;
+    background:#20222d;
+    border-left:1px solid rgba(255,255,255,.08);
+    z-index:1002;
+    transition:right .35s ease;
+    display:flex;
+    flex-direction:column;
+}
+.side-menu.show{right:0;}
+
+.menu-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:24px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+.logo{
+    width:150px;
+}
+#closeBtn{
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:28px;
+    cursor:pointer;
+}
+.menu-links{
+    padding:24px;
+    flex:1;
+}
+.menu-links li{
+    margin:10px 0;
+}
+.menu-links a{
+    display:block;
+    padding:14px 16px;
+    border-radius:8px;
+    color:#cfcfcf;
+    font-weight:500;
+    transition:.3s;
+}
+.menu-links a:hover,
+.menu-links a.active{
+    background:#FFC107;
+    color:#111;
+}
+.menu-footer{
+    padding:24px;
+    border-top:1px solid rgba(255,255,255,.08);
+    color:#bfbfbf;
+}
+.menu-footer h4{
+    color:#fff;
+    margin-bottom:12px;
+}
+.menu-footer p{
+    margin:10px 0;
+}
+.social-icons{
+    display:flex;
+    gap:12px;
+    margin-top:16px;
+}
+.social-icons a{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#2b2d39;
+    color:#fff;
+    transition:.3s;
+}
+.social-icons a:hover{
+    background:#FFC107;
+    color:#111;
+}
+
+@media(max-width:768px){
+    .side-menu{
+        width:100%;
+        right:-100%;
+    }
+}

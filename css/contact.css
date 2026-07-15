@@ -1,0 +1,105 @@
+/*=========================================
+            CONTACT
+==========================================*/
+
+.contact{
+    padding:100px 0;
+    background:#1B1D29;
+}
+
+.contact-grid{
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+    margin-top:60px;
+
+}
+
+.contact-card{
+
+    background:#252734;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:15px;
+    padding:35px 25px;
+    text-align:center;
+    transition:.35s;
+
+}
+
+.contact-card:hover{
+
+    transform:translateY(-10px);
+    border-color:#FFC107;
+
+}
+
+.icon{
+
+    width:70px;
+    height:70px;
+    margin:auto;
+    margin-bottom:20px;
+    border-radius:50%;
+    background:#FFC107;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+}
+
+.icon i{
+
+    font-size:28px;
+    color:#111;
+
+}
+
+.contact-card h3{
+
+    color:#fff;
+    margin-bottom:10px;
+
+}
+
+.contact-card p,
+.contact-card a{
+
+    color:#bdbdbd;
+    text-decoration:none;
+    word-break:break-word;
+    transition:.3s;
+
+}
+
+.contact-card a:hover{
+
+    color:#FFC107;
+
+}
+
+@media(max-width:992px){
+
+.contact-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:576px){
+
+.contact-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.contact{
+
+padding:70px 0;
+
+}
+
+}

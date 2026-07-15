@@ -1,0 +1,69 @@
+/* ==========================================
+   TECH STACK
+========================================== */
+
+.skills{
+    padding:100px 0;
+    background:#20222D;
+}
+
+.tech-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+    margin-top:50px;
+}
+
+.tech-card{
+    background:#252734;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    padding:35px 25px;
+    text-align:center;
+    transition:.35s;
+    cursor:pointer;
+}
+
+.tech-card:hover{
+    transform:translateY(-10px);
+    border-color:#FFC107;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.tech-card i{
+    font-size:48px;
+    color:#FFC107;
+    margin-bottom:20px;
+}
+
+.tech-card h3{
+    color:#fff;
+    margin-bottom:10px;
+    font-size:22px;
+}
+
+.tech-card p{
+    color:#bfbfbf;
+    font-size:15px;
+    line-height:1.6;
+}
+
+@media(max-width:992px){
+
+.tech-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:576px){
+
+.tech-grid{
+grid-template-columns:1fr;
+}
+
+.skills{
+padding:70px 0;
+}
+
+}

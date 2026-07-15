@@ -1,0 +1,101 @@
+
+:root{
+ --primary:#FFC107;
+ --bg:#1B1D29;
+ --card:#252734;
+ --border:#3A3D4E;
+ --text:#fff;
+ --muted:#b7b7b7;
+ --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ font-family:'Poppins',sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+#loader{
+ position:fixed;inset:0;background:var(--bg);
+ display:flex;align-items:center;justify-content:center;
+ z-index:9999;
+}
+.loader-circle{
+ width:60px;height:60px;border:5px solid rgba(255,255,255,.15);
+ border-top-color:var(--primary);border-radius:50%;
+ animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+#overlay{
+ position:fixed;inset:0;
+ background:rgba(0,0,0,.65);
+ opacity:0;visibility:hidden;
+ transition:.35s;
+ z-index:900;
+}
+#overlay.show{opacity:1;visibility:visible}
+.hero{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ position:relative;
+ padding:60px;
+ background:
+ radial-gradient(circle at top right,rgba(255,193,7,.08),transparent 35%),
+ linear-gradient(#1b1d29,#1b1d29);
+}
+.hero-card{
+ width:min(1200px,100%);
+ min-height:560px;
+ background:#252734 url("../images/hero-bg.jpg") center/cover no-repeat;
+ border:1px solid var(--border);
+ border-radius:var(--radius);
+ overflow:hidden;
+ position:relative;
+ box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+.hero-overlay{
+ position:absolute;inset:0;
+ background:rgba(22,24,35,.72);
+}
+.hero-content{
+ position:relative;z-index:2;
+ display:flex;align-items:center;justify-content:space-between;
+ padding:70px;
+ min-height:560px;
+}
+.hero-left{max-width:55%}
+.welcome{
+ color:var(--primary);
+ letter-spacing:3px;
+ font-size:.85rem;
+}
+.hero-left h1{
+ font-size:4rem;
+ line-height:1.1;
+ margin:20px 0;
+}
+.hero-left h1 span{color:var(--primary)}
+.typing{font-size:1.2rem;margin:30px 0}
+.code,.cursor{color:var(--primary)}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary,.btn-outline{
+ padding:15px 30px;border-radius:6px;font-weight:600;
+ transition:.3s;
+}
+.btn-primary{background:var(--primary);color:#111}
+.btn-primary:hover{transform:translateY(-3px)}
+.btn-outline{border:1px solid var(--primary);color:var(--primary)}
+.btn-outline:hover{background:var(--primary);color:#111}
+.hero-right img{max-height:500px}
+@media(max-width:992px){
+ .hero-content{flex-direction:column;text-align:center;padding:40px}
+ .hero-left{max-width:100%}
+ .hero-left h1{font-size:2.8rem}
+ .hero-right{margin-top:30px}
+}
