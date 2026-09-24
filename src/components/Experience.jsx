@@ -1,3 +1,5 @@
+import { assetUrl } from "../utils";
+
 export default function Experience() {
   return (
     <section
@@ -90,6 +92,31 @@ export default function Experience() {
                 <li>Git</li>
                 <li>CI/CD</li>
               </ul>
+              <div className="experience-document">
+                <div>
+                  <span className="document-label">
+                    SUPPORTING DOCUMENT · PDF
+                  </span>
+                  <p>Employment Offer Letter</p>
+                </div>
+                <div className="document-actions">
+                  <a
+                    href={assetUrl("images/Vyoog_EmpOffer_Kaviya.pdf")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Employment Offer Letter"
+                  >
+                    View <span aria-hidden="true">↗</span>
+                  </a>
+                  <a
+                    href={assetUrl("images/Vyoog_EmpOffer_Kaviya.pdf")}
+                    download="Kaviya_Subramani_Vyoog_Offer_Letter.pdf"
+                    aria-label="Download Employment Offer Letter"
+                  >
+                    Download <span aria-hidden="true">↓</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </article>
           <article className="timeline-item">
@@ -131,6 +158,35 @@ export default function Experience() {
                 <li>MySQL</li>
                 <li>Git</li>
               </ul>
+              <div className="experience-document">
+                <div>
+                  <span className="document-label">
+                    SUPPORTING DOCUMENT · PDF
+                  </span>
+                  <p>Internship Completion Letter</p>
+                </div>
+                <div className="document-actions">
+                  <a
+                    href={assetUrl(
+                      "images/Vyoog_Kaviya_InternCompletion%20Letter.pdf",
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Internship Completion Letter"
+                  >
+                    View <span aria-hidden="true">↗</span>
+                  </a>
+                  <a
+                    href={assetUrl(
+                      "images/Vyoog_Kaviya_InternCompletion%20Letter.pdf",
+                    )}
+                    download="Kaviya_Subramani_Vyoog_Internship_Completion.pdf"
+                    aria-label="Download Internship Completion Letter"
+                  >
+                    Download <span aria-hidden="true">↓</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </article>
           <article className="timeline-item">
