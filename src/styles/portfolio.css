@@ -7,6 +7,196 @@
   --gold: #e8bf69;
   --display: "Outfit", sans-serif;
   --body: "Outfit", sans-serif;
+  --reveal-distance: 48px;
+  --reveal-duration: 1000ms;
+}
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 5px;
+  z-index: 100;
+  background: #e8bf6914;
+  pointer-events: none;
+}
+.scroll-progress-fill {
+  height: 100%;
+  background: var(--gold);
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+  box-shadow: 0 0 12px #e8bf6970;
+  position: relative;
+}
+.scroll-progress-fill::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 24px;
+  height: 100%;
+  background: var(--gold);
+  box-shadow: 0 0 16px var(--gold);
+}
+@keyframes card-arrive {
+  from {
+    opacity: 0;
+    translate: 0 var(--reveal-distance);
+    scale: 0.9;
+    rotate: x 12deg;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    rotate: x 0deg;
+  }
+}
+@keyframes gold-trace {
+  from {
+    scale: 0 1;
+    opacity: 0;
+  }
+  to {
+    scale: 1 1;
+    opacity: 1;
+  }
+}
+@keyframes gold-bloom {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 #e8bf6900;
+  }
+  45% {
+    box-shadow:
+      0 0 0 7px #e8bf691a,
+      0 0 24px #e8bf6930;
+  }
+}
+@keyframes panel-light {
+  0%,
+  100% {
+    border-color: #e8bf6930;
+  }
+  45% {
+    border-color: #e8bf6990;
+  }
+}
+/* Content stays visible when animation or observer support is unavailable. */
+@keyframes scroll-reveal {
+  from {
+    opacity: 0;
+    translate: 0 var(--reveal-distance);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes title-unveil {
+  from {
+    clip-path: inset(0 0 100% 0);
+    translate: 0 24px;
+  }
+  to {
+    clip-path: inset(0);
+    translate: 0 0;
+  }
+}
+@keyframes symbol-turn {
+  from {
+    rotate: -25deg;
+    scale: 0.65;
+  }
+  to {
+    rotate: 0deg;
+    scale: 1;
+  }
+}
+@keyframes ambient-gold {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready:not(.scroll-reveal):not(:focus-within) {
+    opacity: 0;
+  }
+  .hero-panel {
+    background: linear-gradient(120deg, #191c22, #393020, #191c22, #25262b);
+    background-size: 300% 300%;
+  }
+  .scroll-reveal h1,
+  .scroll-reveal h2,
+  h2.scroll-reveal {
+    animation: title-unveil 1100ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .hero-copy.scroll-reveal > p,
+  .hero-copy.scroll-reveal > a {
+    animation: scroll-reveal 900ms 180ms ease-out backwards;
+  }
+  .tech-card.scroll-reveal .tech-symbol {
+    animation: symbol-turn 900ms var(--reveal-delay, 0ms)
+      cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .scroll-reveal {
+    animation: scroll-reveal var(--reveal-duration)
+      cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) backwards;
+  }
+  .tech-card.scroll-reveal,
+  .work-card.scroll-reveal,
+  .hero-panel.scroll-reveal,
+  .contact-shell.scroll-reveal {
+    animation-name: card-arrive;
+  }
+  .scroll-reveal h2 {
+    position: relative;
+  }
+  .scroll-reveal h2::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: -16px;
+    background: linear-gradient(90deg, var(--gold), #e8bf6920);
+    transform-origin: left;
+    animation: gold-trace 850ms 180ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .timeline-item.scroll-reveal .timeline-dot {
+    animation: gold-bloom 1100ms 200ms ease-out;
+  }
+  .hero-panel.scroll-reveal {
+    animation:
+      card-arrive var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1)
+        backwards,
+      panel-light 2400ms 500ms ease-out,
+      ambient-gold 8s ease-in-out infinite;
+  }
+  .gallery-preview img {
+    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-preview:hover img {
+      transform: scale(1.035);
+    }
+  }
+  .scroll-reveal:focus-within {
+    animation: none;
+  }
+}
+@media (max-width: 760px) {
+  :root {
+    --reveal-distance: 30px;
+    --reveal-duration: 800ms;
+  }
+  .scroll-reveal {
+    --reveal-delay: 0ms !important;
+  }
 }
 * {
   box-sizing: border-box;
@@ -21,6 +211,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--body);
+  font-size: 17px;
   line-height: 1.6;
 }
 a {
@@ -73,7 +264,7 @@ h2 > span {
 .skills-eyebrow {
   display: block;
   color: var(--gold);
-  font: 11px/1.6 monospace;
+  font: 13px/1.6 monospace;
   letter-spacing: 2px;
   margin-bottom: 28px;
 }
@@ -115,7 +306,7 @@ h2 > span {
   display: flex;
   align-items: center;
   gap: 32px;
-  font-size: 13px;
+  font-size: 15px;
   color: #c3c3c9;
 }
 .desktop-nav a:hover,
@@ -141,7 +332,7 @@ h2 > span {
   justify-content: space-between;
   gap: 20px;
   color: var(--muted);
-  font: 10px/1.7 monospace;
+  font: 12px/1.7 monospace;
   letter-spacing: 1.3px;
 }
 .hero-kicker > span:first-child {
@@ -156,7 +347,7 @@ h2 > span {
 }
 .intro-name {
   color: #c0c0c8;
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 22px;
 }
 h1 {
@@ -171,8 +362,8 @@ h1 span {
 .hero-description {
   max-width: 490px;
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.9;
+  font-size: 18px;
+  line-height: 1.8;
   margin: 26px 0 30px;
 }
 .button {
@@ -182,7 +373,7 @@ h1 span {
   gap: 26px;
   padding: 14px 20px;
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   transition:
     background 0.2s,
@@ -214,7 +405,7 @@ h1 span {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font: 10px monospace;
+  font: 12px monospace;
   letter-spacing: 1px;
   color: var(--muted);
 }
@@ -237,7 +428,7 @@ h1 span {
   gap: 14px;
   border-top: 1px solid var(--line);
   padding: 16px 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 .hero-panel dt {
   color: var(--muted);
@@ -249,7 +440,7 @@ h1 span {
   margin-top: 10px;
   padding-top: 17px;
   border-top: 1px solid var(--line);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
 }
 .status-dot {
@@ -279,12 +470,12 @@ h1 span {
 }
 .about-copy p {
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.9;
+  font-size: 16px;
+  line-height: 1.8;
   margin-bottom: 18px;
 }
 .about-copy .lead {
-  font-size: 20px;
+  font-size: 22px;
   color: var(--text);
   line-height: 1.6;
 }
@@ -310,7 +501,7 @@ h1 span {
 }
 .impact-row p {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 8px;
 }
 .experience {
@@ -328,7 +519,7 @@ h1 span {
 .experience-intro {
   max-width: 550px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 18px;
 }
 .timeline {
@@ -377,11 +568,11 @@ h1 span {
   flex-wrap: wrap;
 }
 .year {
-  font: 11px monospace;
+  font: 13px monospace;
   color: var(--gold);
 }
 .current-role {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--gold);
   padding: 3px 8px;
   border: 1px solid #e8bf6930;
@@ -394,12 +585,12 @@ h1 span {
   letter-spacing: -0.5px;
 }
 .timeline-card h4 {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: #c7c8ce;
 }
 .experience-location {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   margin: 5px 0 20px;
 }
@@ -411,7 +602,7 @@ h1 span {
   padding-left: 16px;
 }
 .experience-achievements li {
-  font-size: 13px;
+  font-size: 15px;
   color: #b6b8c1;
   line-height: 1.8;
   padding-left: 3px;
@@ -435,7 +626,7 @@ h1 span {
   padding: 4px 8px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 13px;
   color: #c9cad2;
   background: #11131840;
 }
@@ -454,7 +645,7 @@ h1 span {
 .section-title-row > p {
   max-width: 330px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.9;
 }
 .skills-strip {
@@ -464,7 +655,7 @@ h1 span {
   border-top: 1px solid var(--line);
   padding-top: 16px;
   margin-bottom: 18px;
-  font: 10px monospace;
+  font: 12px monospace;
   color: var(--muted);
   letter-spacing: 1px;
 }
@@ -506,11 +697,11 @@ h1 span {
   font: 16px monospace;
 }
 .tech-number {
-  font: 11px monospace;
+  font: 13px monospace;
   color: #818491;
 }
 .tech-label {
-  font: 9px monospace;
+  font: 12px monospace;
   letter-spacing: 1.5px;
   color: var(--muted);
   margin-bottom: 8px;
@@ -524,14 +715,14 @@ h1 span {
   margin-bottom: 22px;
 }
 .tech-card .skill-tags li {
-  font-size: 10px;
+  font-size: 12px;
   padding: 4px 6px;
 }
 .tech-footnote {
   margin-top: auto;
   border-top: 1px solid var(--line);
   padding-top: 12px;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
 }
 .projects {
@@ -558,7 +749,7 @@ h1 span {
   gap: 15px;
   margin-bottom: 28px;
   color: var(--gold);
-  font: 9px/1.7 monospace;
+  font: 12px/1.7 monospace;
   letter-spacing: 1px;
 }
 .work-number {
@@ -572,7 +763,7 @@ h1 span {
   letter-spacing: -0.6px;
 }
 .work-card p {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.9;
   color: var(--muted);
   margin-bottom: 24px;
@@ -580,7 +771,7 @@ h1 span {
 .work-card .work-subtitle {
   color: #d1d2d9;
   margin: 12px 0;
-  font-size: 14px;
+  font-size: 16px;
 }
 .work-result {
   display: flex;
@@ -595,7 +786,7 @@ h1 span {
   color: var(--gold);
 }
 .work-result span {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
 }
 .work-card .skill-tags {
@@ -611,7 +802,7 @@ h1 span {
   border: 0;
 }
 .education-date {
-  font: 10px monospace;
+  font: 12px monospace;
   letter-spacing: 1px;
   color: var(--gold);
 }
@@ -621,13 +812,13 @@ h1 span {
   margin: 12px 0 8px;
 }
 .education-list p {
-  font-size: 14px;
+  font-size: 16px;
   color: #ccced5;
 }
 .education-detail {
   display: block;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.9;
   margin-top: 10px;
 }
@@ -649,7 +840,7 @@ h1 span {
   color: var(--gold);
 }
 .contact-shell > p {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--muted);
   max-width: 430px;
   margin: 24px 0;
@@ -670,7 +861,7 @@ h1 span {
   display: flex;
   flex-wrap: wrap;
   gap: 16px 32px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   margin-top: 32px;
 }
@@ -689,7 +880,7 @@ h1 span {
 .site-footer p,
 .site-footer .container > a:last-child {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 @media (hover: hover) {
   .tech-card:hover {
@@ -740,7 +931,7 @@ h1 span {
   }
   .mobile-nav {
     display: block;
-    font-size: 13px;
+    font-size: 15px;
   }
   .mobile-nav summary {
     cursor: pointer;
@@ -792,8 +983,9 @@ h1 span {
     grid-template-columns: 100px 1fr;
   }
   .hero-bottom {
+    flex-wrap: wrap;
     letter-spacing: 0;
-    font-size: 9px;
+    font-size: 12px;
   }
   .about-layout,
   .education-layout {
@@ -811,7 +1003,7 @@ h1 span {
     font-size: 36px;
   }
   .impact-row p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .timeline-item {
     gap: 16px;
@@ -867,6 +1059,7 @@ h1 span {
     text-align: right;
   }
   .contact-email {
+    font-size: 18px;
     gap: 10px;
   }
   .impact-row strong {
@@ -944,12 +1137,12 @@ h1 span {
   border-radius: 4px;
   background: #111318e8;
   color: #f1f0e9;
-  font-size: 10px;
+  font-size: 12px;
 }
 .project-gallery figcaption {
   padding: 10px 0;
   color: #c5c7d0;
-  font-size: 12px;
+  font-size: 14px;
 }
 .gallery-thumbnails {
   display: grid;
@@ -981,7 +1174,7 @@ h1 span {
 .gallery-thumbnails span {
   display: block;
   padding: 5px;
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.5;
   color: var(--muted);
 }
@@ -997,7 +1190,7 @@ h1 span {
     max-width: none;
   }
   .gallery-thumbnails span {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 @media (max-width: 480px) {
@@ -1005,10 +1198,11 @@ h1 span {
     padding: 8px;
   }
   .gallery-thumbnails {
-    gap: 5px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
   }
   .gallery-thumbnails span {
-    font-size: 8px;
+    font-size: 11px;
   }
   .work-featured {
     padding: 18px;
@@ -1052,12 +1246,12 @@ button:focus-visible {
 }
 .document-label {
   color: var(--muted);
-  font: 9px/1.6 monospace;
+  font: 12px/1.6 monospace;
   letter-spacing: 1px;
 }
 .experience-document p {
   margin-top: 5px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .document-actions {
   display: flex;
@@ -1069,7 +1263,7 @@ button:focus-visible {
   border: 1px solid #e8bf6930;
   border-radius: 4px;
   color: var(--gold);
-  font-size: 11px;
+  font-size: 13px;
 }
 .document-actions a:hover {
   background: #e8bf6912;
